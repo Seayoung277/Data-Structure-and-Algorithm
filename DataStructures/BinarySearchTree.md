@@ -15,7 +15,7 @@
 - Complete Binary Tree
     - all levels are filled except bottom level
 - Binary Search Tree
-    - max(LEFT) <= root.val <= min(RIGHT)
+    - max(Left) <= Root.val <= min(Right)
 
 ## Binary Tree Traversal
 
@@ -58,8 +58,52 @@ class Solution {
 #### Definition
 - Root -> Left -> Right
 
+#### LeetCode
+[144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+
+#### Implementations
+- Recursive
+```
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        traverse(root, result);
+        return result;
+    }
+    
+    private void traverse(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        
+        result.add(root.val);
+        traverse(root.left, result);
+        traverse(root.right, result);
+    }
+}
+```
 
 ### Postorder Traversal
 
 #### Definition
 - Left -> Right -> Root
+
+#### LeetCode
+[145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+
+#### Implementations
+- Recursive
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        traverse(root, result);
+        return result;
+    }
+    
+    private void traverse(TreeNode root, List<Integer> result) {
+        if (root == null) return;
+        
+        traverse(root.left, result);
+        traverse(root.right, result);
+        result.add(root.val);
+    }
+}
