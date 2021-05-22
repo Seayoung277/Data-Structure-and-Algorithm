@@ -153,6 +153,38 @@ class Solution {
     }
 }
 ```
+- Morris (without stack)
+```
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new LinkedList<>();
+        TreeNode tmp;
+        
+        while (root != null) {
+            if (root.left == null) {
+                result.add(root.val);
+                root = root.right;
+            }
+            else {
+                tmp = root.left;
+                while (tmp.right != null && tmp.right != root) {
+                    tmp = tmp.right;
+                }
+                if (tmp.right == null) {
+                    result.add(root.val);
+                    tmp.right = root;
+                    root = root.left;
+                } else {
+                    tmp.right = null;
+                    root = root.right;
+                }
+            }
+        }
+        
+        return result;
+    }
+}
+```
 
 ### Postorder Traversal
 
