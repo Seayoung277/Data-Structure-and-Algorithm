@@ -212,3 +212,55 @@ class Solution {
         result.add(root.val);
     }
 }
+```
+- Double Stack (Preorder and reverse)
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        Stack<TreeNode> stack = new Stack();
+        
+        while (root != null || !stack.empty()) {
+            while (root != null) {
+                result.add(root.val);
+                stack.push(root.left);
+                root = root.right;
+            }
+            root = stack.pop();
+        }
+        
+        Collections.reverse(result);
+        return result;
+    }
+}
+```
+- Single Stack (Keep record of Prev)
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        Stack<TreeNode> stack = new Stack();
+        TreeNode prev = root;
+        
+        stack.push(root);
+        while (!stack.empty()) {
+            root = stack.peek();
+            if (root == null) {
+                prev = stack.pop();
+            }
+            else if (root.left == null && root.right == null || prev == root.right) {
+                result.add(root.val);
+                prev = stack.pop();
+            } else if (prev == root.left) {
+                prev = root;
+                stack.push(root.right);
+            } else {
+                prev = root;
+                stack.push(root.left);
+            }
+        }
+        
+        return result;
+    }
+}
+```
