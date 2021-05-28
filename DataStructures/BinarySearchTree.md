@@ -264,3 +264,35 @@ class Solution {
     }
 }
 ```
+- Morris (Preorder and reverse)
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        TreeNode tmp = null;
+        
+        while (root != null) {
+            if (root.right == null) {
+                result.add(root.val);
+                root = root.left;
+            } else {
+                tmp = root.right;
+                while (tmp.left != null && tmp.left != root) {
+                    tmp = tmp.left;
+                }
+                if (tmp.left == root) {
+                    tmp.left = null;
+                    root = root.left;
+                } else {
+                    tmp.left = root;
+                    result.add(root.val);
+                    root = root.right;
+                }
+            }
+        }
+        
+        Collections.reverse(result);
+        return result;
+    }
+}
+```
